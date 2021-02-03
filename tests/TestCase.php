@@ -2,9 +2,9 @@
 
 namespace Almesery\Bosta\Tests;
 
+use Almesery\Bosta\BostaServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
-use Almesery\Bosta\BostaServiceProvider;
 
 class TestCase extends Orchestra
 {
