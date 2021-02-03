@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\Skeleton\Tests;
+namespace Almesery\Bosta\Tests;
 
 class ExampleTest extends TestCase
 {
