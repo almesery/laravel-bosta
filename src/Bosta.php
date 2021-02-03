@@ -1,14 +1,12 @@
 <?php
 
-declare (strict_types = 1);
+namespace Almesery\Bosta;
 
-namespace Bosta;
-
-use Bosta\Zones\ZoneClient;
-use Bosta\Cities\CityClient;
-use Bosta\Deliveries\DeliveryClient;
-use Bosta\PickupRequests\PickupClient;
-use Bosta\PickupLocations\PickupLocationClient;
+use Almesery\Bosta\Cities\CityClient;
+use Almesery\Bosta\Deliveries\DeliveryClient;
+use Almesery\Bosta\PickupLocations\PickupLocationClient;
+use Almesery\Bosta\PickupRequests\PickupClient;
+use Almesery\Bosta\Zones\ZoneClient;
 
 class Bosta
 {
@@ -50,15 +48,7 @@ class Bosta
             curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($body));
         }
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt(
-            $curl,
-            CURLOPT_HTTPHEADER,
-            array(
-                "Content-Type: application/json",
-                'authorization:' . $this->API_KEY,
-                'X-Requested-By: php-sdk',
-            )
-        );
+        curl_setopt($curl, CURLOPT_HTTPHEADER, array("Content-Type: application/json", 'authorization:' . $this->API_KEY, 'X-Requested-By: php-sdk',));
         $response = curl_exec($curl);
         curl_close($curl);
         return json_decode($response);

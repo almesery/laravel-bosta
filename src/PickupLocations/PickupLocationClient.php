@@ -1,16 +1,18 @@
 <?php
 
-declare (strict_types = 1);
-namespace Bosta\PickupLocations;
 
-use Bosta\Bosta;
+namespace Almesery\Bosta\PickupLocations;
+
+
+use Almesery\Bosta\Bosta;
+use Exception;
+use stdClass;
 
 class PickupLocationClient
 {
     /**
      * Create PickupLocationClient Instance
-     *
-     * @param \Bosta\Bosta $apiClient
+     * @param Bosta $apiClient
      */
     public function __construct(Bosta $apiClient)
     {
@@ -20,13 +22,13 @@ class PickupLocationClient
     /**
      * List PickupLocations
      *
-     * @return \stdClass
+     * @return Exception|stdClass
      */
-    public function list(): \stdClass
+    public function list()
     {
         try {
             $path = 'pickup-locations';
-            $response = $this->apiClient->send('GET', $path, new \stdClass, '');
+            $response = $this->apiClient->send('GET', $path, new stdClass, '');
 
             if ($response->success === true) {
                 return $response->data;

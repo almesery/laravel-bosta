@@ -1,16 +1,18 @@
 <?php
 
-declare (strict_types = 1);
-namespace Bosta\Zones;
+namespace Almesery\Bosta\Zones;
 
-use Bosta\Bosta;
+
+use Almesery\Bosta\Bosta;
+use Exception;
+use stdClass;
 
 class ZoneClient
 {
     /**
      * Create ZoneClient Instance
      *
-     * @param \Bosta\Bosta $apiClient
+     * @param Bosta $apiClient
      */
     public function __construct(Bosta $apiClient)
     {
@@ -21,18 +23,19 @@ class ZoneClient
      * List Zones of the City
      *
      * @param string $cityId
-     * @return \stdClass
+     * @return stdClass
+     * @throws Exception
      */
-    public function list(string $cityId): \stdClass
+    public function list(string $cityId): stdClass
     {
         try {
-            $path = 'cities/'.$cityId.'/zones';
-            $response = $this->apiClient->send('GET', $path, new \stdClass, '');
+            $path = 'cities/' . $cityId . '/zones';
+            $response = $this->apiClient->send('GET', $path, new stdClass, '');
 
             if ($response->success === true) {
                 return $response->data;
             } elseif ($response->success === false) {
-                throw new \Exception($response->message);
+                throw new Exception($response->message);
             }
         } catch (Exception $e) {
             return $e;

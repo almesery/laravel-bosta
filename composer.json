@@ -18,7 +18,8 @@
         "php": "^7.4|^8.0",
         "spatie/laravel-package-tools": "^1.1",
         "illuminate/contracts": "^8.0",
-        "ext-curl": "*"
+        "ext-curl": "*",
+        "ext-json": "*"
     },
     "require-dev": {
         "orchestra/testbench": "^6.0",
@@ -51,7 +52,7 @@
                 "Almesery\\Bosta\\BostaServiceProvider"
             ],
             "aliases": {
-                "Bosta": "Almesery\\Bosta\\BostaFacade"
+                "Bosta": "Almesery\\Bosta\\Facades\\BostaFacade"
             }
         }
     },

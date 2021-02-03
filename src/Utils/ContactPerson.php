@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types = 1);
-namespace Bosta\Utils;
+namespace Almesery\Bosta\Utils;
 
 class ContactPerson
 {

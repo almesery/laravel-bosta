@@ -1,17 +1,17 @@
 <?php
 
-declare (strict_types = 1);
-namespace Bosta\PickupRequests;
+namespace Almesery\Bosta\PickupRequests;
 
-use Bosta\Bosta;
-use Bosta\Utils\ContactPerson;
+use Almesery\Bosta\Bosta;
+use Almesery\Bosta\Utils\ContactPerson;
+use Exception;
+use stdClass;
 
 class PickupClient
 {
     /**
      * Create PickupClient Instance
-     *
-     * @param \Bosta\Bosta $apiClient
+     * @param Bosta $apiClient
      */
     public function __construct(Bosta $apiClient)
     {
@@ -23,11 +23,11 @@ class PickupClient
      *
      * @param string $scheduledDate
      * @param string $scheduledTimeSlot
-     * @param \Bosta\Utils\ContactPerson $contactPerson
+     * @param ContactPerson $contactPerson
      * @param string $businessLocationId
      * @param string $notes
      * @param int $noOfPackages
-     * @return \stdClass
+     * @return stdClass
      */
     public function create(
         string $scheduledDate,
@@ -36,10 +36,11 @@ class PickupClient
         string $businessLocationId,
         string $notes,
         int $noOfPackages
-    ): \stdClass {
+    ): stdClass
+    {
         try {
             $path = 'pickups';
-            $body = new \stdClass;
+            $body = new stdClass;
             $body->scheduledDate = $scheduledDate;
             $body->scheduledTimeSlot = $scheduledTimeSlot;
             if ($contactPerson->contactPerson) {
@@ -59,11 +60,11 @@ class PickupClient
             }
 
             $response = $this->apiClient->send('POST', $path, $body, '');
-            
+
             if ($response->success === true) {
                 return $response->data;
             } elseif ($response->success === false) {
-                throw new \Exception($response->message);
+                throw new Exception($response->message);
             }
         } catch (Exception $e) {
             return $e;
@@ -76,7 +77,7 @@ class PickupClient
      * @param string $pickupRequestId
      * @param string $scheduledDate
      * @param string $scheduledTimeSlot
-     * @param \Bosta\Utils\ContactPerson $contactPerson
+     * @param ContactPerson $contactPerson
      * @param string $businessLocationId
      * @param string $notes
      * @param int $noOfPackages
@@ -90,10 +91,11 @@ class PickupClient
         string $businessLocationId,
         string $notes,
         int $noOfPackages
-    ): string {
+    ): string
+    {
         try {
-            $path = 'pickups/'.$pickupRequestId;
-            $body = new \stdClass;
+            $path = 'pickups/' . $pickupRequestId;
+            $body = new stdClass;
             $body->scheduledDate = $scheduledDate;
             $body->scheduledTimeSlot = $scheduledTimeSlot;
             if ($contactPerson->contactPerson) {
@@ -117,7 +119,7 @@ class PickupClient
             if ($response->success === true) {
                 return $response->data ? $response->data : $response->message;
             } elseif ($response->success === false) {
-                throw new \Exception($response->message);
+                throw new Exception($response->message);
             }
         } catch (Exception $e) {
             return $e;
@@ -134,12 +136,12 @@ class PickupClient
     {
         try {
             $path = 'pickups/' . $pickupRequestId;
-            $response = $this->apiClient->send('DELETE', $path, new \stdClass, '');
+            $response = $this->apiClient->send('DELETE', $path, new stdClass, '');
 
             if ($response->success === true) {
                 return $response->data ? $response->data : $response->message;
             } elseif ($response->success === false) {
-                throw new \Exception($response->message);
+                throw new Exception($response->message);
             }
         } catch (Exception $e) {
             return $e;
@@ -147,21 +149,21 @@ class PickupClient
     }
 
     /**
-    * List Pickup Request
-    *
-    * @param int $pageId
-    * @return \stdClass
-    */
-    public function list(int $pageId = 0): \stdClass
+     * List Pickup Request
+     *
+     * @param int $pageId
+     * @return stdClass
+     */
+    public function list(int $pageId = 0): stdClass
     {
         try {
             $path = 'pickups?pageId=' . $pageId;
-            $response = $this->apiClient->send('GET', $path, new \stdClass, '');
+            $response = $this->apiClient->send('GET', $path, new stdClass, '');
 
             if ($response->success === true) {
                 return $response->data;
             } elseif ($response->success === false) {
-                throw new \Exception($response->message);
+                throw new Exception($response->message);
             }
         } catch (Exception $e) {
             return $e;
@@ -169,21 +171,21 @@ class PickupClient
     }
 
     /**
-    * Get Pickup Request
-    *
-    * @param string $pickupRequestId
-    * @return \stdClass
-    */
-    public function get(string $pickupRequestId): \stdClass
+     * Get Pickup Request
+     *
+     * @param string $pickupRequestId
+     * @return stdClass
+     */
+    public function get(string $pickupRequestId): stdClass
     {
         try {
             $path = 'pickups/' . $pickupRequestId;
-            $response = $this->apiClient->send('GET', $path, new \stdClass, '');
+            $response = $this->apiClient->send('GET', $path, new stdClass, '');
 
             if ($response->success === true) {
                 return $response->data;
             } elseif ($response->success === false) {
-                throw new \Exception($response->message);
+                throw new Exception($response->message);
             }
         } catch (Exception $e) {
             return $e;
