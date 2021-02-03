@@ -1,6 +1,6 @@
 <?php
 
-namespace Almesery\Bosta;
+namespace Almesery\Bosta\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
@@ -11,6 +11,6 @@ class BostaFacade extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return 'laravel-bosta';
+        return 'Bosta';
     }
 }
