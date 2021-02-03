@@ -7,9 +7,22 @@ use Almesery\Bosta\Deliveries\DeliveryClient;
 use Almesery\Bosta\PickupLocations\PickupLocationClient;
 use Almesery\Bosta\PickupRequests\PickupClient;
 use Almesery\Bosta\Zones\ZoneClient;
+use Illuminate\Config\Repository;
+use Illuminate\Contracts\Foundation\Application;
 
+/**
+ * @property PickupClient pickup
+ * @property PickupLocationClient pickupLocation
+ * @property Repository|Application|mixed API_KEY
+ * @property CityClient city
+ */
 class Bosta
 {
+    /**
+     * @var ZoneClient
+     */
+    private ZoneClient $zone;
+
     /**
      * Create Bosta Instance
      *
@@ -19,7 +32,7 @@ class Bosta
     public function __construct(string $API_KEY, string $BASE_URL = 'https://app.bosta.co')
     {
         $this->BASE_URL = $BASE_URL . '/api/v1/';
-        $this->API_KEY = $API_KEY;
+        $this->API_KEY = config('bosta.api_key');
         $this->pickup = new PickupClient($this);
         $this->pickupLocation = new PickupLocationClient($this);
         $this->delivery = new DeliveryClient($this);

@@ -2,7 +2,7 @@
 
 namespace Almesery\Bosta\Cities;
 
-use Bosta\Bosta;
+use Almesery\Bosta\Bosta;
 use Exception;
 use stdClass;
 
@@ -29,7 +29,6 @@ class CityClient
         try {
             $path = 'cities';
             $response = $this->apiClient->send('GET', $path, new stdClass, '');
-
             if ($response->success === true) {
                 return $response->data;
             } elseif ($response->success === false) {
