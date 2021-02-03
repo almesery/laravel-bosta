@@ -61,9 +61,10 @@ class Bosta
             curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($body));
         }
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($curl, CURLOPT_HTTPHEADER, array("Content-Type: application/json", 'authorization:' . $this->API_KEY, 'X-Requested-By: php-sdk',));
+        curl_setopt($curl, CURLOPT_HTTPHEADER, ["Content-Type: application/json", 'authorization:' . $this->API_KEY, 'X-Requested-By: php-sdk',]);
         $response = curl_exec($curl);
         curl_close($curl);
+
         return json_decode($response);
     }
 }

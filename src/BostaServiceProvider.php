@@ -2,7 +2,6 @@
 
 namespace Almesery\Bosta;
 
-use Almesery\Bosta\Commands\BostaCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
