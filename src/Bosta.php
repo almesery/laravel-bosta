@@ -6,6 +6,8 @@ use Almesery\Bosta\Actions\ManageCity;
 use Almesery\Bosta\Actions\ManageDelivery;
 use Almesery\Bosta\Actions\ManagePickUpLocations;
 use GuzzleHttp\Client;
+use Illuminate\Config\Repository;
+use Illuminate\Contracts\Foundation\Application;
 
 class Bosta
 {
@@ -19,7 +21,10 @@ class Bosta
      */
     protected string $apiKey;
 
-    protected $baseUri;
+    /**
+     * @var string
+     */
+    protected string $bosaUrl;
 
     /**
      * @var Client
@@ -51,15 +56,17 @@ class Bosta
         if (!is_null($guzzle)) {
             $this->guzzle = $guzzle;
         }
-
-        $this->baseUri = config('bosta.production.base_url');
     }
 
+    /**
+     * @param string $apiKey
+     * @param Client|null $guzzle
+     */
     public function setApiKey(string $apiKey, Client $guzzle = null)
     {
         $this->apiKey = $apiKey;
         $this->guzzle = $guzzle ?: new Client([
-            'base_uri' => $this->baseUri,
+            'base_uri' => config('bosta.production.base_url'),
             "http_errors" => 'false',
             'headers' => [
                 'authorization' => $this->apiKey,
@@ -67,6 +74,21 @@ class Bosta
                 'Content-Type' => 'application/json',
             ],
         ]);
+    }
+
+    /**
+     * Transform the items of the collection to the given class.
+     *
+     * @param array $collection
+     * @param string $class
+     * @param array $extraData
+     * @return array
+     */
+    protected function transformCollection(array $collection, string $class, $extraData = []): array
+    {
+        return array_map(function ($data) use ($class, $extraData) {
+            return new $class($extraData + $data, $this);
+        }, $collection);
     }
 
 }

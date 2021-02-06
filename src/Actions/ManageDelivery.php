@@ -15,6 +15,7 @@ trait ManageDelivery
     }
 
     /**
+     * @param $deliveryId
      * @return mixed
      */
     public function exportCsv()
