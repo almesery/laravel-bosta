@@ -2,14 +2,17 @@
 
 namespace Almesery\Bosta;
 
+use Almesery\Bosta\Actions\ManageCity;
+use Almesery\Bosta\Actions\ManageDelivery;
 use Almesery\Bosta\Actions\ManagePickUpLocations;
 use GuzzleHttp\Client;
 
 class Bosta
 {
-
     use MakesHttpRequests,
-        ManagePickUpLocations;
+        ManagePickUpLocations,
+        ManageCity,
+        ManageDelivery;
 
     /**
      * @var string

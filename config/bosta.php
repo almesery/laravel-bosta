@@ -9,5 +9,4 @@ return [
         'bosta_api_key' => env('PRODUCTION_BOSTA_API_KEY', null),
         'base_url' => env('PRODUCTION_BASE_URL', 'https://app.bosta.co'),
     ],
-    'loginMethod' => 'apiKey',
 ];
