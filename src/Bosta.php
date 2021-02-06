@@ -43,10 +43,6 @@ class Bosta
         }
     }
 
-    /**
-     * @param string $apiKey
-     * @param Client|null $guzzle
-     */
     public function setApiKey(string $apiKey, Client $guzzle = null)
     {
         $this->apiKey = $apiKey;
@@ -60,4 +56,5 @@ class Bosta
             ],
         ]);
     }
+
 }

@@ -36,8 +36,7 @@ class PickupClient
         string $businessLocationId,
         string $notes,
         int $noOfPackages
-    ): stdClass
-    {
+    ): stdClass {
         try {
             $path = 'pickups';
             $body = new stdClass;
@@ -91,8 +90,7 @@ class PickupClient
         string $businessLocationId,
         string $notes,
         int $noOfPackages
-    ): string
-    {
+    ): string {
         try {
             $path = 'pickups/' . $pickupRequestId;
             $body = new stdClass;

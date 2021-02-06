@@ -3,7 +3,6 @@
 
 namespace Almesery\Bosta\PickupLocations;
 
-
 use Almesery\Bosta\Bosta;
 use Exception;
 use stdClass;

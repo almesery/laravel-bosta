@@ -2,7 +2,6 @@
 
 namespace Almesery\Bosta\Zones;
 
-
 use Almesery\Bosta\Bosta;
 use Exception;
 use stdClass;

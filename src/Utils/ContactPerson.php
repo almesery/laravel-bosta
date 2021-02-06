@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types = 1);
+declare(strict_types = 1);
 namespace Almesery\Bosta\Utils;
 
 class ContactPerson
@@ -16,13 +16,13 @@ class ContactPerson
     {
         $this->contactPerson = new \stdClass();
         if ($name) {
-            $this->contactPerson->name =$name;
+            $this->contactPerson->name = $name;
         }
         if ($phone) {
-            $this->contactPerson->phone =$phone;
+            $this->contactPerson->phone = $phone;
         }
         if ($email) {
-            $this->contactPerson->email =$email;
+            $this->contactPerson->email = $email;
         }
     }
 }

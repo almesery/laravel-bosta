@@ -37,8 +37,7 @@ class DeliveryClient
         Receiver $receiver,
         string $notes,
         int $cod
-    ): stdClass
-    {
+    ): stdClass {
         try {
             $path = 'deliveries';
 
@@ -81,8 +80,7 @@ class DeliveryClient
         Receiver $receiver,
         string $notes,
         int $cod
-    ): string
-    {
+    ): string {
         try {
             $path = 'deliveries/' . $deliveryId;
 
