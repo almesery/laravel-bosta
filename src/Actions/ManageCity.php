@@ -17,7 +17,7 @@ trait ManageCity
      * @param $cityId
      * @return mixed
      */
-    public function getCitiyById($cityId)
+    public function getCitiyById(string $cityId)
     {
         return $this->get('/cities/{cityId}');
     }
@@ -27,7 +27,7 @@ trait ManageCity
      * @param $cityId
      * @return mixed
      */
-    public function getZonesbyCityId($cityId)
+    public function getZonesbyCityId(string $cityId)
     {
         return $this->get('/cities/{cityId}/zones');
     }
@@ -36,7 +36,7 @@ trait ManageCity
      * @param $cityId
      * @return mixed
      */
-    public function getDistrictsByCityId($cityId)
+    public function getDistrictsByCityId(string $cityId)
     {
         return $this->get('/cities/{cityId}/districts');
     }

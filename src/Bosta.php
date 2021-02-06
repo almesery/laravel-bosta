@@ -19,6 +19,8 @@ class Bosta
      */
     protected string $apiKey;
 
+    protected $baseUri;
+
     /**
      * @var Client
      */
@@ -49,13 +51,15 @@ class Bosta
         if (!is_null($guzzle)) {
             $this->guzzle = $guzzle;
         }
+
+        $this->baseUri = config('bosta.production.base_url');
     }
 
     public function setApiKey(string $apiKey, Client $guzzle = null)
     {
         $this->apiKey = $apiKey;
         $this->guzzle = $guzzle ?: new Client([
-            'base_uri' => config('bosta.production.base_url'),
+            'base_uri' => $this->baseUri,
             "http_errors" => 'false',
             'headers' => [
                 'authorization' => $this->apiKey,
