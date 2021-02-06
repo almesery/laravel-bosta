@@ -2,10 +2,15 @@
 
 namespace Almesery\Bosta;
 
+use Almesery\Bosta\Actions\ManagePickUpLocations;
 use GuzzleHttp\Client;
 
 class Bosta
 {
+
+    use MakesHttpRequests,
+        ManagePickUpLocations;
+
     /**
      * @var string
      */
@@ -43,6 +48,11 @@ class Bosta
         }
     }
 
+    /**
+     * @param string $apiKey
+     * @param Client|null $guzzle
+     * @return $this
+     */
     public function setApiKey(string $apiKey, Client $guzzle = null)
     {
         $this->apiKey = $apiKey;
@@ -50,11 +60,13 @@ class Bosta
             'base_uri' => config('bosta.production.base_url'),
             "http_errors" => 'false',
             'headers' => [
-                'authorization:' . $this->apiKey,
+                'Authorization:' . $this->apiKey,
+                'X-Requested-By: php-sdk',
                 'Accept' => 'application/json',
                 'Content-Type' => 'application/json',
             ],
         ]);
+        return $this;
     }
 
 }
