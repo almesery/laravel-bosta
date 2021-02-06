@@ -4,7 +4,6 @@ namespace Almesery\Bosta\Actions;
 
 trait ManageDelivery
 {
-
     /**
      * @param $deliveryId
      * @return mixed

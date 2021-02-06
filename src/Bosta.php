@@ -6,15 +6,13 @@ use Almesery\Bosta\Actions\ManageCity;
 use Almesery\Bosta\Actions\ManageDelivery;
 use Almesery\Bosta\Actions\ManagePickUpLocations;
 use GuzzleHttp\Client;
-use Illuminate\Config\Repository;
-use Illuminate\Contracts\Foundation\Application;
 
 class Bosta
 {
-    use MakesHttpRequests,
-        ManagePickUpLocations,
-        ManageCity,
-        ManageDelivery;
+    use MakesHttpRequests;
+    use ManagePickUpLocations;
+    use ManageCity;
+    use ManageDelivery;
 
     /**
      * @var string
@@ -41,7 +39,6 @@ class Bosta
      */
     protected string $password;
 
-
     /**
      * Bosta constructor.
      * @param null $apiKey
@@ -49,11 +46,11 @@ class Bosta
      */
     public function __construct($apiKey = null, Client $guzzle = null)
     {
-        if (!is_null($apiKey)) {
+        if (! is_null($apiKey)) {
             $this->setApiKey($apiKey, $guzzle);
         }
 
-        if (!is_null($guzzle)) {
+        if (! is_null($guzzle)) {
             $this->guzzle = $guzzle;
         }
     }
@@ -90,5 +87,4 @@ class Bosta
             return new $class($extraData + $data, $this);
         }, $collection);
     }
-
 }
