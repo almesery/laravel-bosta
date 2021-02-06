@@ -25,13 +25,23 @@ class Bosta
     protected Client $guzzle;
 
     /**
+     * @var string
+     */
+    protected string $email;
+
+    /**
+     * @var string
+     */
+    protected string $password;
+
+
+    /**
      * Bosta constructor.
      * @param null $apiKey
      * @param Client|null $guzzle
      */
     public function __construct($apiKey = null, Client $guzzle = null)
     {
-
         if (!is_null($apiKey)) {
             $this->setApiKey($apiKey, $guzzle);
         }
@@ -41,24 +51,18 @@ class Bosta
         }
     }
 
-    /**
-     * @param string $apiKey
-     * @param Client|null $guzzle
-     * @return $this
-     */
-    public function setApiKey(string $apiKey, Client $guzzle = null): Bosta
+    public function setApiKey(string $apiKey, Client $guzzle = null)
     {
         $this->apiKey = $apiKey;
         $this->guzzle = $guzzle ?: new Client([
             'base_uri' => config('bosta.production.base_url'),
             "http_errors" => 'false',
             'headers' => [
-                "Content-Type" => "application/json",
-                "Accept" => "application/json",
                 'authorization' => $this->apiKey,
-                'X-Requested-By' => 'php-sdk',
+                'Accept' => 'application/json',
+                'Content-Type' => 'application/json',
             ],
         ]);
-        return $this;
     }
+
 }
