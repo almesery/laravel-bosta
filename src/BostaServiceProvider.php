@@ -16,4 +16,15 @@ class BostaServiceProvider extends PackageServiceProvider
          */
         $package->name('laravel-bosta')->hasConfigFile();
     }
+
+    /**
+     * @return BostaServiceProvider
+     */
+    public function boot()
+    {
+        parent::boot();
+        app()->singleton('bosta', function () {
+            return new Bosta(config('bosta.production.bosta_api_key'));
+        });
+    }
 }

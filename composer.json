@@ -30,9 +30,11 @@
     },
     "autoload": {
         "psr-4": {
-            "Almesery\\Bosta\\": "src",
-            "Almesery\\Bosta\\Database\\Factories\\": "database/factories"
-        }
+            "Almesery\\Bosta\\": "src"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
