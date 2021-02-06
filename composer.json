@@ -11,18 +11,18 @@
         {
             "name": "almesery",
             "email": "abdelrahman.pme18@suezuni.edu.eg",
-            "role": "Developer"
+            "role": "BackEnd Developer"
         }
     ],
     "require": {
         "php": "^7.4|^8.0",
         "spatie/laravel-package-tools": "^1.1",
-        "illuminate/contracts": "^8.0",
+        "illuminate/contracts": "^7.0",
         "ext-curl": "*",
         "ext-json": "*"
     },
     "require-dev": {
-        "orchestra/testbench": "^6.0",
+        "orchestra/testbench": "^5.0",
         "phpunit/phpunit": "^9.3",
         "spatie/laravel-ray": "^1.9",
         "vimeo/psalm": "^4.4"
