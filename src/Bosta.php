@@ -26,7 +26,6 @@ class Bosta
      */
     protected string $password;
 
-
     /**
      * Bosta constructor.
      * @param null $apiKey
@@ -34,11 +33,11 @@ class Bosta
      */
     public function __construct($apiKey = null, Client $guzzle = null)
     {
-        if (!is_null($apiKey)) {
+        if (! is_null($apiKey)) {
             $this->setApiKey($apiKey, $guzzle);
         }
 
-        if (!is_null($guzzle)) {
+        if (! is_null($guzzle)) {
             $this->guzzle = $guzzle;
         }
     }
@@ -56,5 +55,4 @@ class Bosta
             ],
         ]);
     }
-
 }

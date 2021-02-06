@@ -73,7 +73,9 @@ trait MakesHttpRequests
      */
     protected function request(string $verb, string $uri, array $payload = [])
     {
-        $response = $this->guzzle->request($verb, $uri,
+        $response = $this->guzzle->request(
+            $verb,
+            $uri,
             empty($payload) ? [] : ['form_params' => $payload]
         );
 
