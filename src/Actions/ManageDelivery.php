@@ -2,6 +2,9 @@
 
 namespace Almesery\Bosta\Actions;
 
+use Almesery\Bosta\Exceptions\CannotPrintAirWayAsDeliveryTerminatedException;
+use GuzzleHttp\Exception\RequestException;
+
 trait ManageDelivery
 {
 
@@ -11,11 +14,14 @@ trait ManageDelivery
      */
     public function createAirwayBill($deliveryId)
     {
-        return $this->get("deliveries/awb/$deliveryId");
+        try {
+            return $this->get("deliveries/awb/$deliveryId");
+        } catch (RequestException $exception) {
+            return response()->json(['status' => 'error', 'message' => (string)$exception->getMessage()], 404)->getData();
+        }
     }
 
     /**
-     * @param $deliveryId
      * @return mixed
      */
     public function exportCsv()

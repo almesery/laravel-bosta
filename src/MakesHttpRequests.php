@@ -2,12 +2,8 @@
 
 namespace Almesery\Bosta;
 
-use Almesery\Bosta\Exceptions\FailedActionException;
-use Almesery\Bosta\Exceptions\NotFoundException;
 use Almesery\Bosta\Exceptions\TimeoutException;
-use Almesery\Bosta\Exceptions\ValidationException;
 use Exception;
-use Psr\Http\Message\ResponseInterface;
 
 trait MakesHttpRequests
 {
@@ -79,41 +75,9 @@ trait MakesHttpRequests
             empty($payload) ? [] : ['form_params' => $payload]
         );
 
-        if ($response->getStatusCode() != 200) {
-            return $this->handleRequestError($response);
-        }
-
         $responseBody = (string)$response->getBody();
 
         return json_decode($responseBody, true) ?: $responseBody;
-    }
-
-    /**
-     * Handle the request error.
-     *
-     * @param ResponseInterface $response
-     * @return void
-     *
-     * @throws Exception
-     * @throws FailedActionException
-     * @throws NotFoundException
-     * @throws ValidationException
-     */
-    protected function handleRequestError(ResponseInterface $response)
-    {
-        if ($response->getStatusCode() == 422) {
-            throw new ValidationException(json_decode((string)$response->getBody(), true));
-        }
-
-        if ($response->getStatusCode() == 404) {
-            throw new NotFoundException();
-        }
-
-        if ($response->getStatusCode() == 400) {
-            throw new FailedActionException((string)$response->getBody());
-        }
-
-        throw new Exception((string)$response->getBody());
     }
 
     /**
