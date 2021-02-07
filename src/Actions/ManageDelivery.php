@@ -35,7 +35,11 @@ trait ManageDelivery
      */
     public function findDeliveryById($deliveryId)
     {
-        return $this->get("deliveries/$deliveryId");
+        try {
+            return $this->get("deliveries/$deliveryId");
+        } catch (RequestException $exception) {
+            return response()->json(['status' => 'error', 'message' => (string)$exception->getMessage()], 404)->getData();
+        }
     }
 
     /**
@@ -46,5 +50,16 @@ trait ManageDelivery
     public function getDeliveries(int $page = 1, int $perPage = 50)
     {
         return $this->get("deliveries?page=$page&perPage=$perPage");
+    }
+
+    /**
+     * @param int $page
+     * @param int $perPage
+     * @param string $state
+     * @return mixed
+     */
+    public function searchDelivery(int $page = 1, int $perPage = 50, string $state = 'Delivered')
+    {
+        return $this->get("deliveries/search?pageNumber=$page&pageLimit=$perPage&state=$state");
     }
 }
