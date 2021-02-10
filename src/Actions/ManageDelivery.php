@@ -2,7 +2,6 @@
 
 namespace Almesery\Bosta\Actions;
 
-use Almesery\Bosta\Exceptions\CannotPrintAirWayAsDeliveryTerminatedException;
 use GuzzleHttp\Exception\RequestException;
 
 trait ManageDelivery
@@ -61,5 +60,14 @@ trait ManageDelivery
     public function searchDelivery(int $page = 1, int $perPage = 50, string $state = 'Delivered')
     {
         return $this->get("deliveries/search?pageNumber=$page&pageLimit=$perPage&state=$state");
+    }
+
+    /**
+     * @param $deliveryDetails
+     * @return mixed
+     */
+    public function createNewDelivery($deliveryDetails)
+    {
+        return $this->post("deliveries", $deliveryDetails);
     }
 }
