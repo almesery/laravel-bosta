@@ -22,6 +22,15 @@ trait ManageCity
         return $this->get("cities/$cityId");
     }
 
+    /**
+     * @param $cityId
+     * @return mixed
+     */
+    public function getZoneById(string $cityId)
+    {
+        return $this->get("zones/$cityId");
+    }
+
 
     /**
      * @param $cityId
