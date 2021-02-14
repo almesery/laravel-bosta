@@ -5,9 +5,8 @@ namespace Almesery\Bosta;
 use Almesery\Bosta\Actions\ManageCity;
 use Almesery\Bosta\Actions\ManageDelivery;
 use Almesery\Bosta\Actions\ManagePickUpLocations;
+use Exception;
 use GuzzleHttp\Client;
-use Illuminate\Config\Repository;
-use Illuminate\Contracts\Foundation\Application;
 
 class Bosta
 {
@@ -32,25 +31,28 @@ class Bosta
     protected Client $guzzle;
 
     /**
-     * @var string
-     */
-    protected string $email;
-
-    /**
-     * @var string
-     */
-    protected string $password;
-
-
-    /**
      * Bosta constructor.
-     * @param null $apiKey
      * @param Client|null $guzzle
+     * @throws Exception
      */
-    public function __construct($apiKey = null, Client $guzzle = null)
+    public function __construct(Client $guzzle = null)
     {
+        $mode = config('bosta.mode');
+
+        if (!in_array($mode, ['test', 'production'])) {
+            throw new Exception('Mode Option must be test or production');
+        }
+
+        if ($mode == "test") {
+            $baseUrl = config('bosta.stage.base_url');
+            $apiKey = config('bosta.stage.bosta_api_key');
+        } else {
+            $apiKey = config('bosta.production.bosta_api_key');
+            $baseUrl = config('bosta.production.base_url');
+        }
+
         if (!is_null($apiKey)) {
-            $this->setApiKey($apiKey, $guzzle);
+            $this->setApiKey($apiKey, $baseUrl, $guzzle);
         }
 
         if (!is_null($guzzle)) {
@@ -60,13 +62,15 @@ class Bosta
 
     /**
      * @param string $apiKey
+     * @param string $baseUrl
      * @param Client|null $guzzle
      */
-    public function setApiKey(string $apiKey, Client $guzzle = null)
+    public function setApiKey(string $apiKey, string $baseUrl, Client $guzzle = null)
     {
         $this->apiKey = $apiKey;
+
         $this->guzzle = $guzzle ?: new Client([
-            'base_uri' => config('bosta.production.base_url'),
+            'base_uri' => $baseUrl,
             "http_errors" => 'false',
             'headers' => [
                 'authorization' => $this->apiKey,
@@ -74,21 +78,6 @@ class Bosta
                 'Content-Type' => 'application/json',
             ],
         ]);
-    }
-
-    /**
-     * Transform the items of the collection to the given class.
-     *
-     * @param array $collection
-     * @param string $class
-     * @param array $extraData
-     * @return array
-     */
-    protected function transformCollection(array $collection, string $class, $extraData = []): array
-    {
-        return array_map(function ($data) use ($class, $extraData) {
-            return new $class($extraData + $data, $this);
-        }, $collection);
     }
 
 }
