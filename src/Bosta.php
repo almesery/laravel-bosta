@@ -10,10 +10,10 @@ use GuzzleHttp\Client;
 
 class Bosta
 {
-    use MakesHttpRequests,
-        ManagePickUpLocations,
-        ManageCity,
-        ManageDelivery;
+    use MakesHttpRequests;
+    use ManagePickUpLocations;
+    use ManageCity;
+    use ManageDelivery;
 
     /**
      * @var string
@@ -39,7 +39,7 @@ class Bosta
     {
         $mode = config('bosta.mode');
 
-        if (!in_array($mode, ['test', 'production'])) {
+        if (! in_array($mode, ['test', 'production'])) {
             throw new Exception('Mode Option must be test or production');
         }
 
@@ -51,11 +51,11 @@ class Bosta
             $baseUrl = config('bosta.production.base_url');
         }
 
-        if (!is_null($apiKey)) {
+        if (! is_null($apiKey)) {
             $this->setApiKey($apiKey, $baseUrl, $guzzle);
         }
 
-        if (!is_null($guzzle)) {
+        if (! is_null($guzzle)) {
             $this->guzzle = $guzzle;
         }
     }
@@ -79,5 +79,4 @@ class Bosta
             ],
         ]);
     }
-
 }

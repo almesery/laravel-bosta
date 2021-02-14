@@ -6,7 +6,6 @@ use GuzzleHttp\Exception\RequestException;
 
 trait ManageDelivery
 {
-
     /**
      * @param $deliveryId
      * @return mixed
